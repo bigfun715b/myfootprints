@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Hiking Journey</title>
+    <!-- Leaflet CSS for map styling -->
+    <link rel="stylesheet" href="https://unpkg.com" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+    <div id="map"></div>
+
+    <!-- Leaflet JavaScript Library -->
+    <script src="https://unpkg.com"></script>
+    <script>
+        // 1. Initialize the map centered around Hong Kong
+        const map = L.map('map').setView([22.3193, 114.1694], 11);
+
+        // 2. Load and display OpenStreetMap background tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // 3. Array of your hiking records (Add your locations here!)
+        const hikeRecords = [
+            {
+                name: "Lion Rock Peak",
+                coords: [22.3522, 114.1822],
+                date: "2026-10-15",
+                notes: "Challenging rugged climb, but the sunset view over Kowloon was absolutely worth it!"
+            },
+            {
+                name: "Dragon's Back",
+                coords: [22.2432, 114.2411],
+                date: "2026-09-20",
+                notes: "An easy, breezy ridge walk. Finished with a refreshing drink down at Big Wave Bay."
+            }
+        ];
+
+        // 4. Loop through records and drop markers onto the map
+        hikeRecords.forEach(hike => {
+            L.marker(hike.coords).addTo(map)
+                .bindPopup(`
+                    <div style="font-family: Arial, sans-serif;">
+                        <h3 style="margin: 0 0 5px 0;">⛰️ ${hike.name}</h3>
+                        <small style="color: #666;">📅 Hiked on: ${hike.date}</small>
+                        <p style="margin: 8px 0 0 0; font-size: 13px;">${hike.notes}</p>
+                    </div>
+                `);
+        });
+    </script>
+</body>
+</html>
